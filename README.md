@@ -405,8 +405,8 @@ interface Foo {
 
 // BAD
 interface Foo {
-    memberA: string;
-    memberB: number;
+    memberA: string,
+    memberB: number,
 }
 ```
 
