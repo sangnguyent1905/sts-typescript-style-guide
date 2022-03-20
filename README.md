@@ -1,1 +1,0 @@
-# sts-typescript-style-guide
