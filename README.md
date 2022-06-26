@@ -145,7 +145,7 @@ class Foo {
 -   Constructor calls must use parentheses, even when no arguments are passed:
 
 ```ts
-const x = new Foo(); // BAD
+const x = new Foo; // BAD
 const x = new Foo(); // GOOD
 ```
 
