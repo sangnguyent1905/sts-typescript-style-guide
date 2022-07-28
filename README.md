@@ -41,7 +41,7 @@ import { ... } from '@modules-alias/...';
 
 ## 3. CONSTANT_CASE
 
-`global constant values`, `including enum values`
+`global constant values`
 
 ```ts
 export const GLOBAL_CONSTANT = 'value';
@@ -152,7 +152,7 @@ function privateFunction(): boolean {
 - Constructor calls must use parentheses, even when no arguments are passed:
 
 ```ts
-const x = new Foo(); // ❌BAD
+const x = new Foo; // ❌BAD
 const x = new Foo(); // ✅GOOD
 ```
 
@@ -167,19 +167,6 @@ class UnnecessaryConstructor {
 }
 ```
 
-## 3. Parameter properties
-
-- Rather than define a property in a class member, use a TypeScript parameter property.
-
-```ts
-class Man {
-  constructor(readonly name: string) {}
-}
-
-let dad = new Man('Tony');
-console.log(dad.name);
-```
-
 ## 4. Field initializers
 
 If a class member is not a parameter, initialize it where it's declared, which sometimes lets you drop the constructor entirely.
@@ -187,13 +174,17 @@ If a class member is not a parameter, initialize it where it's declared, which s
 ```ts
 class Foo {
   private readonly userList: string[];
+  public age: number;
+
   constructor() {
     this.userList = []; // ❌BAD
+    this.age = 1;
   }
 }
 
 class Foo {
   private readonly userList: string[] = []; // ✅GOOD
+  public age = 1;
 }
 ```
 
@@ -250,26 +241,7 @@ throw Error('Foo is not a valid bar.'); // ❌BAD
 throw new Error('Foo is not a valid bar.'); // ✅GOOD
 ```
 
-## 9. Iterating objects
-
-Iterating objects with `for (... in ...)` is error prone. It will include enumerable properties from the prototype chain.
-
-Do not use unfiltered `for (... in ...)` statements:
-
-```ts
-//❌BAD
-for (const x in someObj) {
-  // x could come from some parent prototype!
-}
-
-//✅GOOD
-for (const x in someObj) {
-  if (!someObj.hasOwnProperty(x)) continue;
-  // now x was definitely defined on someObj
-}
-```
-
-## 10. Control flow statements & blocks
+## 9. Control flow statements & blocks
 
 Control flow statements spanning multiple lines always use blocks for the containing code.
 
@@ -293,7 +265,7 @@ if (x) {
 if (x) x.doFoo();
 ```
 
-## 11. Switch Statements
+## 10. Switch Statements
 
 All switch statements must contain a `default` statement group, even if it contains no code.
 
@@ -315,7 +287,7 @@ switch (x) {
 }
 ```
 
-## 12. Equality Checks
+## 11. Equality Checks
 
 Always use triple equals `(===)` and not equals `(!==)`.
 
@@ -330,7 +302,7 @@ if (foo === 'bar' || baz !== bam) {
 }
 ```
 
-## 13. Function Declarations
+## 12. Function Declarations
 
 Use `function foo() { ... }` to declare named functions instead of assigning a function expression into a local variable.
 
@@ -342,7 +314,7 @@ function foo() { ... }
 const foo = function() { ... }
 ```
 
-## 14. Use arrow functions in expressions
+## 13. Use arrow functions in expressions
 
 Always use arrow functions instead of pre-ES6 function expressions defined with the `function` keyword.
 
@@ -352,7 +324,7 @@ bar(() => { this.doSomething(); }) //✅GOOD
 bar(function() { ... }) //❌BAD
 ```
 
-## 15.Arrow functions as properties
+## 14.Arrow functions as properties
 Classes usually should not contain properties initialized to arrow functions
 
 ```ts
@@ -392,7 +364,7 @@ class DelayHandler {
 }
 ```
 
-## 16.Type Assertions
+## 15.Type Assertions
 
 Type assertion (`x as SomeType`) is unsafe. it only silences the TypeScript compiler, but do not insert any runtime checks to match these assertions, so they can cause your program to crash at runtime.
 
@@ -405,7 +377,7 @@ if (x instanceof Foo) {
 }
 ```
 
-## 17. Type Assertions and Object Literals
+## 16. Type Assertions and Object Literals
 
 Use type annotations (: Foo) instead of type assertions (as Foo) to specify the type of an object literal. This allows detecting refactoring bugs when the fields of an interface change over time.
 
@@ -423,7 +395,7 @@ const foo: Foo = {
 };
 ```
 
-## 18. Member property declarations
+## 17. Member property declarations
 
 Interface and class declarations must use the ; character to separate individual member declarations:
 
@@ -441,7 +413,7 @@ interface Foo {
 }
 ```
 
-## 19. Optimization compatibility for module object imports
+## 18. Optimization compatibility for module object imports
 
 When importing a module object, directly access properties on the module object rather than passing it around. This ensures that modules can be analyzed and optimized. Treating module imports as namespaces is fine.
 
@@ -460,7 +432,7 @@ class A {
 }
 ```
 
-## 20. Debugger statements
+## 19. Debugger statements
 
 Debugger statements must not be included in `production` code.
 
